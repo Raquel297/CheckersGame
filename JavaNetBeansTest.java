@@ -54,6 +54,54 @@ public class JavaNetBeansTest{ //Automatically creates the class for you!!!!
             System.out.println();             
         }
     }
+    /*
+     * The minimax algorithm is typically modified and the modifications depend on what game we are playing
+     * This standardized minimax algorithm presumes that there are two possible game states per player. 
+     * So the game tree looks like a binary tree with subtrees that are min or max heaps.
+     * When we play checkers, however, the level right after the root contains 9 possible game states.
+     * Therefore, the game tree will look very different and thus we'll have to modify our minimax 
+     * algorithm to work on a tree like that accordingly.
+     * We also implement alpha-beta pruning which can significantly reduce the running-time of the algorithm. 
+     */
+    int MAX = 1000;
+    int MIN = -1000;
+    public int miniMax(int depth, int height, int position, boolean isMaxPlayer, int[] scores, int alpha, int beta){
+        if(depth == height){ //If we reached a possible ending game state 
+           return scores[position];
+        } 
+        if(isMaxPlayer){ //If it is the AI's turn (the player who wants to maximize their score)
+            int best = MIN;
+            for(int i = 0; i < 2; i++){ //We only count  up to 2 because we assume we are dealing with a binary search tree for now
+                int value = miniMax(depth + 1, height, 2*position + i, false, scores, alpha, beta);
+                best = Math.max(best, value);
+                alpha = Math.max(best, alpha);
+                if(beta <= alpha){
+                    break;
+                }
+
+            }
+            return best;
+        }
+        else{
+            int best = MAX;
+            for(int i = 0; i < 2; i++){
+                int value =miniMax(depth + 1, height, 2*position + i, true, scores, alpha, beta);
+                best= Math.min(best, value);
+                beta = Math.min(best, beta);
+                if(beta <= alpha){
+                    break;
+                }
+            }
+            return best;
+        }
+    }   
+    //This method calculates the height of the binary tree. It will be modified later to fit the checkers game tree
+    public static int log2(int n){
+        if(n == 1){
+            return 0;
+        }
+        return 1+log2(n/2);
+    }
     public static void main(String[] args) {
         // TODO code application logic here
         /*
@@ -64,6 +112,7 @@ public class JavaNetBeansTest{ //Automatically creates the class for you!!!!
          */
         char[][] board = new char[8][8]; 
         populateBoard(board);
+        //miniMax(); To be created fully soon
     }
     
 }
