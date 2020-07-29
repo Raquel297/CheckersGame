@@ -22,7 +22,7 @@ public class JavaNetBeansTest{ //Automatically creates the class for you!!!!
                 * The round pieces on the board will be placed onto only the black squares
                 * By seeing the board displayed, one can tell which squares are black and white
                 * The round pieces are represented as X or Y. The white pieces are X and 
-                * the red pieces are Y. When I pursue graphics programming in java,
+                * the black pieces are Y. When I pursue graphics programming in java,
                 * the board will be drawn more realistically with actual colors and shapes. 
                 */
                 if((i <= 2) && ((i % 2 == 0 && j % 2 == 0) ||(i % 2 != 0 && j % 2 != 0))){
