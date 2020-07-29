@@ -65,14 +65,20 @@ public class JavaNetBeansTest{ //Automatically creates the class for you!!!!
      */
     int MAX = 1000;
     int MIN = -1000;
-    public int miniMax(int depth, int height, int position, boolean isMaxPlayer, int[] scores, int alpha, int beta){
+    public int miniMax(int depth, int height, int position, boolean isMaxPlayer, int[][] board, int alpha, int beta){
         if(depth == height){ //If we reached a possible ending game state 
-           return scores[position];
+           int evaluation = staticEvaluation(board);
+           if(evaluation == -5000){
+               break;
+           }
+           else if(evaluation == 5000){
+               break;
+           }
         } 
         if(isMaxPlayer){ //If it is the AI's turn (the player who wants to maximize their score)
             int best = MIN;
             for(int i = 0; i < 2; i++){ //We only count  up to 2 because we assume we are dealing with a binary search tree for now
-                int value = miniMax(depth + 1, height, 2*position + i, false, scores, alpha, beta);
+                int value = miniMax(depth + 1, height, 2*position + i, false, board, alpha, beta);
                 best = Math.max(best, value);
                 alpha = Math.max(best, alpha);
                 if(beta <= alpha){
@@ -85,7 +91,7 @@ public class JavaNetBeansTest{ //Automatically creates the class for you!!!!
         else{
             int best = MAX;
             for(int i = 0; i < 2; i++){
-                int value =miniMax(depth + 1, height, 2*position + i, true, scores, alpha, beta);
+                int value = miniMax(depth + 1, height, 2*position + i, true, board, alpha, beta);
                 best= Math.min(best, value);
                 beta = Math.min(best, beta);
                 if(beta <= alpha){
@@ -102,6 +108,46 @@ public class JavaNetBeansTest{ //Automatically creates the class for you!!!!
         }
         return 1+log2(n/2);
     }
+    /* This method determines the score of a board after a move is made by the AI player.
+     * I used the simplest mathematical way to determine the evaluation.
+     * Evaluation = # of AI's pieces - # of human's pieces. 
+     * Of course, there are other features I will add later on (after I finish the GUI)
+     * that is a better evaluator for the scores of different board positions, but for now
+     * I am only a novice checkers player. 
+     * Variable countX represents the number of the AI's checkers pieces
+     * and countY represents the number of the human's checkers pieces. 
+     */
+    public static int staticEvaluation(int[][] board){
+        int countX = 0, countY = 0;
+        for(int i = 0; i < 7; i++){
+            for(int j = 0; j < 7; j++){
+                if(board[i][j] == 'X'){
+                    countX += 1;
+                }
+                else if(board[i][j] == 'Y'){
+                    countY += 1;
+                }
+            }
+        }
+        /* 
+         * If the value of staticEvaluation() is greater than 0, we 
+         * know that the AI is winning so far. 
+         * If the value is less than 0, we know that the human is winning so far. 
+         * If either countX or countY are 0, then either the AI lost or the human lost
+         */
+        if(countX == 0){
+            return -5000;
+        }
+        else if(countY == 0){
+             return 5000;
+        }
+        return countX - countY; 
+    }
+    /*
+     * We need to figure out if either the AI or human won the checkers game. 
+     * This method does just that. It returns true if the AI won and false if the 
+     * human won.
+     */
     public static void main(String[] args) {
         // TODO code application logic here
         /*
@@ -113,6 +159,7 @@ public class JavaNetBeansTest{ //Automatically creates the class for you!!!!
         char[][] board = new char[8][8]; 
         populateBoard(board);
         //miniMax(); To be created fully soon
+        
     }
     
 }
