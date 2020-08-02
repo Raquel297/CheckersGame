@@ -1,7 +1,8 @@
 # Checkers Game
 I decided to take the initiative to build my own software project. My first endeavor is a game that allows you to play against an AI algorithm that will either always win or tie the game. There are more updates coming soon to this ReadMe file and I will put program files here too. The ReadMe file will contain the specifications of the program, my thought-process about why I chose certain programming concepts instead of others, and the difficulties I faced programming this game. When code files are submitted, please feel free to make suggestions (if you are an experienced programmer) for improvements of my code (especially if there are improvements for the running-time and space-complexity). <br /><br />
 UPDATE: I will have to take a 2 week hiatus due to software internship programming assessments. When I am finished with studying for and completing my assessments, I will add more methods to this program. <br /><br />
-The next coding file update will be added to this repository no later than the end of this Friday. Tomorrow, I am expected to write other game functions (besides the minimax algorithm) that the game will need such as: isGameOver(), evaluation(), getMoves(), makeAMove(). My ultimate ambition is to implement a nice looking GUI (graphic user Interface) for my game. 
+
+I am expected to write other game functions (besides the minimax algorithm) that the game will need such as: isGameOver(), evaluation(), getMoves(), makeAMove(). My ultimate ambition is to implement a nice looking GUI (graphic user Interface) for my game. 
 # Technical Specifications
 Integrated Development Environment Used: Netbeans 8.2<br />
 Programming Language Used: Java
