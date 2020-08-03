@@ -5,7 +5,7 @@ UPDATE: This project will be updated again on August 9th. <br /><br />
 I am expected to write other game functions (besides the minimax algorithm) that the game will need such as: isGameOver(), evaluation(), getMoves(), makeAMove(). My ultimate ambition is to implement a nice looking GUI (graphic user Interface) for my game. 
 # Technical Specifications
 Integrated Development Environment Used: Netbeans 8.2<br />
-Programming Language Used: Java
+Programming Language Used: Java 7
 # Written Plans
 Before writing the program in my IDE, I needed to plan what data structures I am going to use to represent different parts of the game. I also needed to figure out what 
 was the best programming language to use. I decided to use java because although I am familiar with C++, I haven't used it in a few semesters and currently in school I am most 
