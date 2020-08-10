@@ -69,10 +69,12 @@ public class JavaNetBeansTest{ //Automatically creates the class for you!!!!
         if(depth == height){ //If we reached a possible ending game state 
            int evaluation = staticEvaluation(board);
            if(evaluation == -5000){
-               break;
+               whoWon(evaluation);
+               return evaluation;
            }
            else if(evaluation == 5000){
-               break;
+               whoWon(evaluation);
+               return evaluation;
            }
         } 
         if(isMaxPlayer){ //If it is the AI's turn (the player who wants to maximize their score)
@@ -119,8 +121,8 @@ public class JavaNetBeansTest{ //Automatically creates the class for you!!!!
      */
     public static int staticEvaluation(int[][] board){
         int countX = 0, countY = 0;
-        for(int i = 0; i < 7; i++){
-            for(int j = 0; j < 7; j++){
+        for(int i = 0; i <= 7; i++){
+            for(int j = 0; j <= 7; j++){
                 if(board[i][j] == 'X'){
                     countX += 1;
                 }
@@ -131,8 +133,8 @@ public class JavaNetBeansTest{ //Automatically creates the class for you!!!!
         }
         /* 
          * If the value of staticEvaluation() is greater than 0, we 
-         * know that the AI is winning so far. 
-         * If the value is less than 0, we know that the human is winning so far. 
+         * can predict that the AI should likely take that path on the tree.
+         * If the value is less than 0, we know that the human should likely take that path on the tree. 
          * If either countX or countY are 0, then either the AI lost or the human lost
          */
         if(countX == 0){
@@ -146,8 +148,16 @@ public class JavaNetBeansTest{ //Automatically creates the class for you!!!!
     /*
      * We need to figure out if either the AI or human won the checkers game. 
      * This method does just that. It returns true if the AI won and false if the 
-     * human won.
+     * human won or if the game is still in session. 
      */
+    public static void whoWon(int value){
+        if(value == 5000){
+            System.out.println("I won! You lose! Aha!");
+        }
+        else{
+            System.out.println("I lost! You won... no fair!");
+        }
+    }
     public static void main(String[] args) {
         // TODO code application logic here
         /*
@@ -158,8 +168,7 @@ public class JavaNetBeansTest{ //Automatically creates the class for you!!!!
          */
         char[][] board = new char[8][8]; 
         populateBoard(board);
-        //miniMax(); To be created fully soon
-        
+        //int value = miniMax(); //you still need to figure out how the game tree for checkers looks 
     }
     
 }
