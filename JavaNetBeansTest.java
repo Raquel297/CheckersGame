@@ -200,6 +200,8 @@ public class JavaNetBeansTest{ //Automatically creates the class for you!!!!
             coor2 = read.nextInt();
             isMoveLegal(coor1, coor2, board);
         }
+        //This is to be done on August 10th. We will figure out a way to update the same board.
+        updateBoard(coor1, coor2, board[][]);
        //int value = miniMax(depth, height, position, isMaxPlayer, board, alpha, beta); //you still need to figure out how the game tree for checkers looks 
        
     }
