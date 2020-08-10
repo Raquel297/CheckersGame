@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package javanetbeanstest;
+import java.util.Scanner;
 
 /**
  *
@@ -158,6 +159,21 @@ public class JavaNetBeansTest{ //Automatically creates the class for you!!!!
             System.out.println("I lost! You won... no fair!");
         }
     }
+    
+    public static boolean isMoveLegal(int coordinate1, int coordinate2, char[][] board){
+        if(coordinate1 < 0 || coordinate1 > 7 || coordinate2 < 0 || coordinate2 > 7){
+           return false;
+        }
+        //We check to see if the square is not empty. You can only move onto an empty square.
+        if(board[coordinate1][coordinate2] != 0){
+            return false;
+        }
+        //We check to see if the coordinates picked are allowed. You can only move diagonally in checkers.
+        if((coordinate1 % 2 != 0 && coordinate2 % 2 == 0) || (coordinate1 % 2 == 0 && coordinate2 % 2 != 0)){
+           return false;
+        }
+        return true;
+    }
     public static void main(String[] args) {
         // TODO code application logic here
         /*
@@ -166,9 +182,26 @@ public class JavaNetBeansTest{ //Automatically creates the class for you!!!!
          * I think it is unnecessary to store 8 in a final constant because a standardized 
          * checkers board is of dimensions 8 by 8
          */
+        Scanner read = new Scanner(System.in);
         char[][] board = new char[8][8]; 
         populateBoard(board);
-        //int value = miniMax(); //you still need to figure out how the game tree for checkers looks 
+        //I still need to figure out what the height of the game tree is.
+        int depth = 0, height, position = 0, alpha = 0, beta = 0; 
+        boolean isMaxPlayer = true;
+        //Variables coor1 and coor2 represent the coordinates the human player chooses 
+        int coor1, coor2; 
+        System.out.println("Make a move. Enter two numeric coordinates in the range of 0 to 7 inclusive."
+                + "Remember, the move must be legal.");
+        coor1 = read.nextInt();
+        coor2 = read.nextInt();
+        while(isMoveLegal(coor1, coor2, board) == false){
+            System.out.println("Illegal move. Try again.");
+            coor1 = read.nextInt();
+            coor2 = read.nextInt();
+            isMoveLegal(coor1, coor2, board);
+        }
+       //int value = miniMax(depth, height, position, isMaxPlayer, board, alpha, beta); //you still need to figure out how the game tree for checkers looks 
+       
     }
     
 }
