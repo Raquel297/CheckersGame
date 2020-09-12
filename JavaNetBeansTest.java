@@ -22,24 +22,24 @@ public class JavaNetBeansTest{ //Automatically creates the class for you!!!!
                 * Here, we place the pieces on the board
                 * The round pieces on the board will be placed onto only the black squares
                 * By seeing the board displayed, one can tell which squares are black and white
-                * The round pieces are represented as X or Y. The white pieces are X and 
-                * the black pieces are Y. When I pursue graphics programming in java,
+                * The round pieces are represented as W or B. The white pieces are W and 
+                * the black pieces are B. When I pursue graphics programming in java,
                 * the board will be drawn more realistically with actual colors and shapes. 
                 */
                 if((i <= 2) && ((i % 2 == 0 && j % 2 == 0) ||(i % 2 != 0 && j % 2 != 0))){
-                   board[i][j] = 'X'; 
+                   board[i][j] = 'W'; 
                 }
                 if((i >= 5 && i <= 7) && ((i % 2 == 0 && j % 2 == 0) ||(i % 2 != 0 && j % 2 != 0))){
-                   board[i][j] = 'Y'; 
+                   board[i][j] = 'B'; 
                 }
                 /*
                  * This is where we display each square with or without a piece
-                 * If there are no round pieces (X or Y) to display, nothing in the square will display
+                 * If there are no round pieces (W or B) to display, nothing in the square will display
                  */
                 /*
                  * Java uses UTF-16 Encoding where characters are mapped to integers based on 
                  * their unicode representation. In java, null is represented as 0.
-                 * Therefore, if a board square is not filled with X or Y, it is empty and 
+                 * Therefore, if a board square is not filled with W or B, it is empty and 
                  * we need a space between the two border lines of the board
                  */
                 if(board[i][j] != 0){ 
@@ -64,8 +64,8 @@ public class JavaNetBeansTest{ //Automatically creates the class for you!!!!
      * algorithm to work on a tree like that accordingly.
      * We also implement alpha-beta pruning which can significantly reduce the running-time of the algorithm. 
      */
-    int MAX = 1000;
-    int MIN = -1000;
+    int MAX = Integer.MAX_VALUE;
+    int MIN = Integer.MIN_VALUE;
     public int miniMax(int depth, int height, int position, boolean isMaxPlayer, int[][] board, int alpha, int beta){
         if(depth == height){ //If we reached a possible ending game state 
            int evaluation = staticEvaluation(board);
@@ -121,14 +121,14 @@ public class JavaNetBeansTest{ //Automatically creates the class for you!!!!
      * and countY represents the number of the human's checkers pieces. 
      */
     public static int staticEvaluation(int[][] board){
-        int countX = 0, countY = 0;
+        int countW = 0, countB = 0;
         for(int i = 0; i <= 7; i++){
             for(int j = 0; j <= 7; j++){
-                if(board[i][j] == 'X'){
-                    countX += 1;
+                if(board[i][j] == 'W'){
+                    countW += 1;
                 }
-                else if(board[i][j] == 'Y'){
-                    countY += 1;
+                else if(board[i][j] == 'B'){
+                    countB += 1;
                 }
             }
         }
@@ -136,15 +136,15 @@ public class JavaNetBeansTest{ //Automatically creates the class for you!!!!
          * If the value of staticEvaluation() is greater than 0, we 
          * can predict that the AI should likely take that path on the tree.
          * If the value is less than 0, we know that the human should likely take that path on the tree. 
-         * If either countX or countY are 0, then either the AI lost or the human lost
+         * If either countW or countB are 0, then either the AI lost or the human lost
          */
-        if(countX == 0){
+        if(countW == 0){
             return -5000;
         }
-        else if(countY == 0){
+        else if(countB == 0){
              return 5000;
         }
-        return countX - countY; 
+        return countW - countB; 
     }
     /*
      * We need to figure out if either the AI or human won the checkers game. 
@@ -201,7 +201,7 @@ public class JavaNetBeansTest{ //Automatically creates the class for you!!!!
             isMoveLegal(coor1, coor2, board);
         }
         //This is to be done on August 10th. We will figure out a way to update the same board.
-        updateBoard(coor1, coor2, board[][]);
+        //updateBoard(coor1, coor2, board[][]);
        //int value = miniMax(depth, height, position, isMaxPlayer, board, alpha, beta); //you still need to figure out how the game tree for checkers looks 
        
     }
