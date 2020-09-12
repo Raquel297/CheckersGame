@@ -15,7 +15,7 @@ public class JavaNetBeansTest{ //Automatically creates the class for you!!!!
      * @param args the command line arguments
      * 
      */
-    static void populateBoard(char[][] board){
+    public static void populateBoard(char[][] board){
        for(int i = 0; i <= 7; i++){
            for(int j = 0; j <=7; j++){
                /*
@@ -64,9 +64,9 @@ public class JavaNetBeansTest{ //Automatically creates the class for you!!!!
      * algorithm to work on a tree like that accordingly.
      * We also implement alpha-beta pruning which can significantly reduce the running-time of the algorithm. 
      */
-    int MAX = Integer.MAX_VALUE;
-    int MIN = Integer.MIN_VALUE;
-    public int miniMax(int depth, int height, int position, boolean isMaxPlayer, int[][] board, int alpha, int beta){
+    static int MAX = Integer.MAX_VALUE;
+    static int MIN = Integer.MIN_VALUE;
+    public static int miniMax(int depth, int height, int position, boolean isMaxPlayer, char[][] board, int alpha, int beta){
         if(depth == height){ //If we reached a possible ending game state 
            int evaluation = staticEvaluation(board);
            if(evaluation == -5000){
@@ -80,8 +80,8 @@ public class JavaNetBeansTest{ //Automatically creates the class for you!!!!
         } 
         if(isMaxPlayer){ //If it is the AI's turn (the player who wants to maximize their score)
             int best = MIN;
-            for(int i = 0; i < 2; i++){ //We only count  up to 2 because we assume we are dealing with a binary search tree for now
-                int value = miniMax(depth + 1, height, 2*position + i, false, board, alpha, beta);
+            for(int i = 0; i < 8; i++){ 
+                int value = miniMax(depth + 1, height, 7*position + i, false, board, alpha, beta);
                 best = Math.max(best, value);
                 alpha = Math.max(best, alpha);
                 if(beta <= alpha){
@@ -93,8 +93,8 @@ public class JavaNetBeansTest{ //Automatically creates the class for you!!!!
         }
         else{
             int best = MAX;
-            for(int i = 0; i < 2; i++){
-                int value = miniMax(depth + 1, height, 2*position + i, true, board, alpha, beta);
+            for(int i = 0; i < 8; i++){
+                int value = miniMax(depth + 1, height, 7*position + i, true, board, alpha, beta);
                 best= Math.min(best, value);
                 beta = Math.min(best, beta);
                 if(beta <= alpha){
@@ -104,12 +104,12 @@ public class JavaNetBeansTest{ //Automatically creates the class for you!!!!
             return best;
         }
     }   
-    //This method calculates the height of the binary tree. It will be modified later to fit the checkers game tree
-    public static int log2(int n){
+    //This method calculates the height of the game tree.
+    public static int log7(int n){
         if(n == 1){
             return 0;
         }
-        return 1+log2(n/2);
+        return 1+log7(n/7);
     }
     /* This method determines the score of a board after a move is made by the AI player.
      * I used the simplest mathematical way to determine the evaluation.
@@ -117,13 +117,13 @@ public class JavaNetBeansTest{ //Automatically creates the class for you!!!!
      * Of course, there are other features I will add later on (after I finish the GUI)
      * that is a better evaluator for the scores of different board positions, but for now
      * I am only a novice checkers player. 
-     * Variable countX represents the number of the AI's checkers pieces
-     * and countY represents the number of the human's checkers pieces. 
+     * Variable countW represents the number of the AI's checkers pieces
+     * and countB represents the number of the human's checkers pieces. 
      */
     public static int staticEvaluation(int[][] board){
         int countW = 0, countB = 0;
-        for(int i = 0; i <= 7; i++){
-            for(int j = 0; j <= 7; j++){
+        for(int i = 0; i < 8; i++){
+            for(int j = 0; j < 8; j++){
                 if(board[i][j] == 'W'){
                     countW += 1;
                 }
@@ -186,7 +186,7 @@ public class JavaNetBeansTest{ //Automatically creates the class for you!!!!
         char[][] board = new char[8][8]; 
         populateBoard(board);
         //I still need to figure out what the height of the game tree is.
-        int depth = 0, height, position = 0, alpha = 0, beta = 0; 
+        int depth = 0, height = log7(64), position = 0, alpha = 0, beta = 0; 
         boolean isMaxPlayer = true;
         //Variables coor1 and coor2 represent the coordinates the human player chooses 
         int coor1, coor2; 
@@ -200,9 +200,10 @@ public class JavaNetBeansTest{ //Automatically creates the class for you!!!!
             coor2 = read.nextInt();
             isMoveLegal(coor1, coor2, board);
         }
-        //This is to be done on August 10th. We will figure out a way to update the same board.
+        //This is to be done three weeks from August 12th, 2020. The board will be updated directly with the GUI
         //updateBoard(coor1, coor2, board[][]);
-       //int value = miniMax(depth, height, position, isMaxPlayer, board, alpha, beta); //you still need to figure out how the game tree for checkers looks 
+        int value = miniMax(depth, height, position, isMaxPlayer, board, alpha, beta);
+        
        
     }
     
